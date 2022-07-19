@@ -26,6 +26,12 @@ const postSchema = new mongoose.Schema({
     imagem:[{
         type: String
     }],
+    uf:{
+        type:String
+    },
+    city:{
+        type:String
+    },
     adopted :{
         type: Boolean
     }
