@@ -6,6 +6,7 @@ const SECRET= process.env.SECRET
 
 const createUser = async (req,res)=>{ 
     try {
+        console.log(req.body)
         if(req.body.email === undefined || req.body.email === null ||req.body.email.trim() == ""){
             throw {
                 statusCode: 400,
@@ -20,7 +21,7 @@ const createUser = async (req,res)=>{
                 details: "Informações insuficientes para a criação de um usuário  "
             }
         }
-        if(rreq.body.password === undefined || req.body.password === null ||req.body.password.trim() == ""){
+        if(req.body.password === undefined || req.body.password === null ||req.body.password.trim() == ""){
             throw {
                 statusCode: 400,
                 message: "Não foi informado a senha",
@@ -38,6 +39,14 @@ const createUser = async (req,res)=>{
             throw {
                 statusCode: 400,
                 message: "Numero de telefone informado inválido",
+                details: "Informações insuficientes para a criação de um usuário  "
+            }
+
+        }
+        if(!validateEmail(req.body.email)){
+            throw {
+                statusCode: 400,
+                message: "Email informado inválido",
                 details: "Informações insuficientes para a criação de um usuário  "
             }
 
@@ -101,10 +110,10 @@ const login = async (req,res)=>{
                     message: "Email/senha incorretos"
                 }
             }
-            const token = jwt.sign({id:user._id},SECRET)    
+            const token = jwt.sign({id:user._id},SECRET)  
             res.status(200).send({
                 message:"Login Autorizado, token gerado:",
-                token:token
+                token
             })
         })
     } catch (error) {
@@ -122,6 +131,13 @@ const login = async (req,res)=>{
     const regex = new RegExp('^((1[1-9])|([2-9][0-9]))((3[0-9]{3}[0-9]{4})|(9[0-9]{3}[0-9]{5}))$'); 
     return regex.test(phone);
 }
+
+const validateEmail = (email) => {
+    const regex = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/); 
+    return regex.test(email);
+}
+
+
 
 
 

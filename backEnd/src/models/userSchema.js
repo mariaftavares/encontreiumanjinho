@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         type:String
     },
     phone:{
-        trype:String 
+        type:String 
     },
     createdate:{
         type: Date,

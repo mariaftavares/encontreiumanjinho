@@ -1,6 +1,5 @@
 const postSchema = require('../models/postSchema')
 
-
 const createPost = async (req, res) => {
    
     try {
@@ -32,6 +31,11 @@ const createPost = async (req, res) => {
                 details: "Informação insuficientes para a criação da publicação "
             }
         }
+        if(req.body.species.toLowerCase() == 'c')req.body.species ="cachorro"
+        if(req.body.species.toLowerCase() == 'g')req.body.species ="gato"   
+        if(req.body.species.toLowerCase() == 'o')req.body.species ="outro"         
+        if(req.body.genre.toLowerCase() == 'f')req.body.genre ="fêmea"
+        if(req.body.genre.toLowerCase() == 'm')req.body.genre ="macho" 
         const newPost = new postSchema({
             id_user: res.locals.id,
             finaldate: req.body.finaldate,
@@ -39,8 +43,8 @@ const createPost = async (req, res) => {
             genre: req.body.genre || "não informado",
             species: req.body.species || "não informado",
             imagem: req.body.imagem,
-            uf: req.body.uf,
-            city: req.body.city,
+            uf: req.body.uf.toLowerCase(),
+            city: req.body.city.toLowerCase(),
             adopted:false
         })
 
@@ -80,7 +84,7 @@ const getPostUser = async (req, res) => {
 
 const getAllPost = async (req, res) => {
     try {
-        const findPost = await postSchema.find({adopted:true}).populate({path:'id_user',select:'name'}).sort({finaldate:'asc'})
+        const findPost = await postSchema.find({adopted:false}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
         if (findPost.length == 0) {
             return res.status(200).send("Nenhuma publicação foi publicada!")
         }
@@ -90,6 +94,30 @@ const getAllPost = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
+
+const getPostByCity = async(req,res)=>{
+    try {
+        if(!req.query.city){
+            const findPost = await postSchema.find({uf:req.params.uf}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
+            if (findPost.length == 0) {
+                return res.status(200).send(`Nenhuma publicação foi publicada nesse estado`)
+            }
+            res.status(200).send(findPost)
+        }
+        if(req.query.city){
+            const findPost = await postSchema.find({uf:req.params.uf},{adopted:false}).and({city:req.query.city}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
+            if (findPost.length == 0) {
+                return res.status(200).send(`Nenhuma publicação foi publicada na cidade ${req.query.city}`)
+            }
+            res.status(200).send(findPost)
+        }
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+} 
+
+
 
 
 const updatePost = async(req,res)=>{ 
@@ -168,6 +196,7 @@ module.exports={
     createPost,
     getPostUser,
     getAllPost,
+    getPostByCity,
     updatePost,
     deletePost
 }
