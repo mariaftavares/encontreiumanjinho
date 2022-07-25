@@ -3,8 +3,9 @@ const router =express.Router();
 const controllerUser = require('../controllers/userControllers')
 const auth = require('../middlewares/auth')
 const controllerPost = require('../controllers/postControllers')
+const controllerIndex = require("../controllers/index")
 
-
+router.get('/',controllerIndex.welcomeMessage)
 router.post('/logincreate',controllerUser.createUser)
 router.post('/login',controllerUser.login)
 router.post('/postcreate',auth.checkAuth,controllerPost.createPost)
