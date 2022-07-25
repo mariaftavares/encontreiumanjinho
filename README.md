@@ -1,9 +1,12 @@
 <img src="https://github.com/mariaftavares/encontreiumanjinho/blob/main/imagem/bannerGithub.png"  />    
-<a>
-    <img alt="Node version" src="https://img.shields.io/badge/node-v16.13.1-%237519C1">
-  </a><a href="http://encontreiumanjinho.herokuapp.com">
+<p align="center">
+<a href="http://encontreiumanjinho.herokuapp.com">
+    <img alt="node" src="https://img.shields.io/badge/node-v16.13.1-%237519C1">
+  </a>
+  <a href="http://encontreiumanjinho.herokuapp.com">
     <img alt="Deploy" src="https://img.shields.io/badge/deploy-heroku-%237519C1">
   </a>
+</p>
 <h1 align="center">Encontrei um Anjinho</h1>
 
 
@@ -68,7 +71,7 @@ $ npm run dev
 💡 As rotas que tiverem esse icone 🔒 antes são rotas onde é necessário que seja informado no **Headers** o token de acesso gerado na rota login. No campo **Key** coloque: Authorization e no **Value**: Bearer token
 
 Se caso estiver utilizando a API de forma local é só trocar https://encontreiumanjinho.herokuapp.com
-por http://localhost:`NumeroDaporta` .
+por http://localhost:NumeroDaporta .
 
 |  Método |  Rota  |    Descrição    |
 | :---         |     :---:      |          ---: |
@@ -80,8 +83,8 @@ por http://localhost:`NumeroDaporta` .
 | `POST`   | http://encontreiumanjinho.herokuapp.com/login |Nesta rota você pode realizar o login do usuário clique [aqui](#login) e veja um exemplo|
 | 🔒 `POST`   | http://encontreiumanjinho.herokuapp.com/postcreate |Nesta rota você pode realizar a publicação do anjinho encontrado clique [aqui](#create-post) e veja um exemplo|
 | 🔒 `GET`   | http://encontreiumanjinho.herokuapp.com/myposts |Nesta rota você é listado todos as publicações feitas por você|
-| 🔒 `PUT`   | http://encontreiumanjinho.herokuapp.com/changepost/`IDPOST` |Nesta rota você pode alterar as informações da sua publicação do id informado, clique [aqui](#update-post) e veja um exemplo|
-| 🔒  `DELETE`   | http://encontreiumanjinho.herokuapp.com/changepost/`IDPOST` |Nesta rota você excluir a publicação do id informado|
+| 🔒 `PUT`   | http://encontreiumanjinho.herokuapp.com/changepost/IDPOST |Nesta rota você pode alterar as informações da sua publicação do id informado, clique [aqui](#update-post) e veja um exemplo|
+| 🔒  `DELETE`   | http://encontreiumanjinho.herokuapp.com/changepost/IDPOST |Nesta rota você excluir a publicação do id informado|
 
 ## Exemplos 
 
