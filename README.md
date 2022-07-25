@@ -1,20 +1,10 @@
 <img src="https://github.com/mariaftavares/encontreiumanjinho/blob/main/imagem/bannerGithub.png"  />    
 <a>
     <img alt="Node version" src="https://img.shields.io/badge/node-v16.13.1-%237519C1">
-  </a>
-<a href="http://encontreiumanjinho.herokuapp.com">
+  </a><a href="http://encontreiumanjinho.herokuapp.com">
     <img alt="Deploy" src="https://img.shields.io/badge/deploy-heroku-%237519C1">
   </a>
 <h1 align="center">Encontrei um Anjinho</h1>
-
-<p align="center">
- <a href="#sobre-o-projeto">Sobre</a> •
- <a href="#funcionalidades">Funcionalidades</a> •
- <a href="#como-executar-o-projeto">Como executar</a> • 
- <a href="#rotas">Rotas</a>
- <a href="#tecnologias">Tecnologias</a> • 
- <a href="#autor">Autor</a> • 
-</p>
 
 
 ## 💻 Sobre o projeto
@@ -43,7 +33,7 @@ O 👼**Encontrei um Anjinho** disponibilizará uma API que permite cadastrar um
 
 ## 🚀 Como executar o projeto 
 
-💡Este projeto está disponibilizado pela plataforma Heroku. Caso deseje utilizá-lo, é só acessar este [link](http://encontreiumanjinho.herokuapp.com), e pra verificar as rotas clique [aqui!](#-rotas)
+💡Este projeto está disponibilizado pela plataforma Heroku. Caso deseje utilizá-lo, é só acessar este [link](http://encontreiumanjinho.herokuapp.com), e pra verificar as rotas clique [aqui!](#rotas)
 
 ### Pré-requisitos (para rodar localmente)
 
@@ -84,14 +74,14 @@ por http://localhost:`NumeroDaporta` .
 | :---         |     :---:      |          ---: |
 | `GET`   | http://encontreiumanjinho.herokuapp.com/   | Rota incial mensagem Bem-Vindo    |
 | `GET`   | http://encontreiumanjinho.herokuapp.com/feed |Lista todas as publicações de anjinhos encontrados |
-| `GET`   | http://encontreiumanjinho.herokuapp.com/feed`?uf=uf` |Lista todas as publicações de anjinhos encontrados no estado(sigla) informado|
-| `GET`   | http://encontreiumanjinho.herokuapp.com/feed`?uf=uf&city=nome da cidade` |Lista todas as publicações de anjinhos encontrados na cidade informada|
+| `GET`   | http://encontreiumanjinho.herokuapp.com/feed?uf=uf|Lista todas as publicações de anjinhos encontrados no estado(sigla) informado|
+| `GET`   | http://encontreiumanjinho.herokuapp.com/feed?uf=uf&city=cidade|Lista todas as publicações de anjinhos encontrados na cidade informada|
 | `POST`   | http://encontreiumanjinho.herokuapp.com/logincreate |Nesta rota você pode criar um usuário clique [aqui](#create-user) e veja um exemplo|
 | `POST`   | http://encontreiumanjinho.herokuapp.com/login |Nesta rota você pode realizar o login do usuário clique [aqui](#login) e veja um exemplo|
 | 🔒 `POST`   | http://encontreiumanjinho.herokuapp.com/postcreate |Nesta rota você pode realizar a publicação do anjinho encontrado clique [aqui](#create-post) e veja um exemplo|
 | 🔒 `GET`   | http://encontreiumanjinho.herokuapp.com/myposts |Nesta rota você é listado todos as publicações feitas por você|
 | 🔒 `PUT`   | http://encontreiumanjinho.herokuapp.com/changepost/`IDPOST` |Nesta rota você pode alterar as informações da sua publicação do id informado, clique [aqui](#update-post) e veja um exemplo|
-| 🔒 `DELETE`   | http://encontreiumanjinho.herokuapp.com/changepost/`IDPOST` |Nesta rota você excluir a publicação do id informado|
+| 🔒  `DELETE`   | http://encontreiumanjinho.herokuapp.com/changepost/`IDPOST` |Nesta rota você excluir a publicação do id informado|
 
 ## Exemplos 
 
