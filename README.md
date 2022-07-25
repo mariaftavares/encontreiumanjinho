@@ -1,6 +1,6 @@
 <img src="https://github.com/mariaftavares/encontreiumanjinho/blob/main/imagem/bannerGithub.png"  />    
 <p align="center">
-<a href="http://encontreiumanjinho.herokuapp.com">
+<a href="https://nodejs.org/en/">
     <img alt="node" src="https://img.shields.io/badge/node-v16.13.1-%237519C1">
   </a>
   <a href="http://encontreiumanjinho.herokuapp.com">
