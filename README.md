@@ -36,7 +36,7 @@ O 👼**Encontrei um Anjinho** disponibilizará uma API que permite cadastrar um
 
 ## 🚀 Como executar o projeto 
 
-💡Este projeto está disponibilizado pela plataforma Heroku. Caso deseje utilizá-lo, é só acessar este [link](http://encontreiumanjinho.herokuapp.com), e pra verificar as rotas clique [aqui!](#rotas)
+💡Este projeto está disponibilizado pela plataforma Heroku. Caso deseje utilizá-lo, é só acessar este [link](http://encontreiumanjinho.herokuapp.com), e pra verificar as rotas clique <a href="#rotas">aqui!</a>
 
 ### Pré-requisitos (para rodar localmente)
 
