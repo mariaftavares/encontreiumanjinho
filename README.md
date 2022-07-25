@@ -154,11 +154,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ---
 ## Autora
 
-<a>
+
+<a href="https://github.com/mariaftavares">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/83185858?v=4" width="100px;" alt=""/>
  <br />
- <sub><b>Maria Fernanda Tavares</b></sub></a> <a href="https://github.com/mariaftavares"></a>
+ <sub><b>Maria Fernanda Tavares</b></sub></a> <a href="https://github.com/mariaftavares" title="GitHub"></a>
  <br />
 
+[![Linkedin Badge](https://img.shields.io/badge/-Maria_Fernanda_Tavares-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/maria-fernanda-tavares-74a1bb222/)](https://www.linkedin.com/in/maria-fernanda-tavares-74a1bb222/) 
+[![Gmail Badge](https://img.shields.io/badge/-mariaffernandatavares@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:mariaffernandatavares@gmail.com)](mailto:mariaffernandatavares@gmail.com)
 
 ---
+
+ 
