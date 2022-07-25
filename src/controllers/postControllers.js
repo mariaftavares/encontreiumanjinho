@@ -70,7 +70,7 @@ const getPostUser = async (req, res) => {
     try {
         const findPostUser = await postSchema.find({
             id_user: res.locals.id
-        })
+        },{ id_user: 0 })
         if (findPostUser.length == 0) {
             return res.status(200).send("Nenhuma publicação foi criada pelo seu usuário")
         }
@@ -84,38 +84,47 @@ const getPostUser = async (req, res) => {
 
 const getAllPost = async (req, res) => {
     try {
-        const findPost = await postSchema.find({adopted:false}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
-        if (findPost.length == 0) {
-            return res.status(200).send("Nenhuma publicação foi publicada!")
+        if(!req.query.uf && !req.query.city){
+            const findPost = await postSchema.find({adopted:false},{ _id: 0 }).populate({path:'id_user',select:'name phone -_id'}).sort({finaldate:'asc'})
+            if (findPost.length == 0) {
+                return res.status(200).send("Nenhuma publicação foi encontrada!")
+            }
+            res.status(200).send(findPost)
         }
-        res.status(200).send(findPost)
+
+        if(req.query.uf && !req.query.city){
+            const findPost = await postSchema.find({uf:req.query.uf},{ _id: 0 }).and({adopted:false}).populate({path:'id_user',select:'name phone -_id'}).sort({finaldate:'asc'})
+            if (findPost.length == 0) {
+                return res.status(200).send(`Nenhuma publicação foi encontrada!`)
+            }
+            res.status(200).send(findPost)
+        }
+        if(req.query.uf && req.query.city){
+            const findPost = await postSchema.find({uf:req.query.uf},{ _id: 0 }).and({city:req.query.city},{adopted:false}).populate({path:'id_user',select:'name phone -_id'}).sort({finaldate:'asc'})
+            if (findPost.length == 0) {
+                return res.status(200).send(`Nenhuma publicação foi encontrada!`)
+            }
+            res.status(200).send(findPost)
+        }
+        if(!req.query.uf && req.query.city){
+            throw {
+                statusCode: 400,
+                message: `Não foi informado estado (UF) da cidade ${req.query.city}`,
+                details: "Informações insuficientes para a busca "
+            }
+        }
+
 
     } catch (error) {
-        res.status(500).send(error.message)
+        if(error.statusCode){
+            res.status(error.statusCode).json(error)
+        }
+
+        else{
+            res.status(500).send(error.message)
+        }
     }
 }
-
-const getPostByCity = async(req,res)=>{
-    try {
-        if(!req.query.city){
-            const findPost = await postSchema.find({uf:req.params.uf}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
-            if (findPost.length == 0) {
-                return res.status(200).send(`Nenhuma publicação foi publicada nesse estado`)
-            }
-            res.status(200).send(findPost)
-        }
-        if(req.query.city){
-            const findPost = await postSchema.find({uf:req.params.uf},{adopted:false}).and({city:req.query.city}).populate({path:'id_user',select:'name phone'}).sort({finaldate:'asc'})
-            if (findPost.length == 0) {
-                return res.status(200).send(`Nenhuma publicação foi publicada na cidade ${req.query.city}`)
-            }
-            res.status(200).send(findPost)
-        }
-
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
-} 
 
 
 
@@ -196,7 +205,6 @@ module.exports={
     createPost,
     getPostUser,
     getAllPost,
-    getPostByCity,
     updatePost,
     deletePost
 }
