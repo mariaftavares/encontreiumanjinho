@@ -116,10 +116,12 @@ por http://localhost:NumeroDaporta .
 ## Enviar essas informações no body (raw/json)
 {
    "description":"Encontrei esse anjinho e não posso ficar com ele, consigo dar um lar temporário para ele a até dia 10/08",
-    "finaldate":"09/25/2022", ## mes/dia/ano, esse campo é a data máxima que pode oferar um lar temporário para o anjinho.
+    "finaldate":"08/10/2022", ## mes/dia/ano, esse campo é a data máxima que pode oferar um lar temporário para o anjinho.
     "genre":"f", ## "f" para  fêmea e  "m" para macho
     "species":"c", ## "c" para  cachorro , "g" para gato e "o" para outro (caso não seja nenhum das alternativas anteriores)
-    "imagem":["http://s2.glbimg.com/4Ek8CnZSuYyyvaNQEPPiX_d-faA=/e.glbimg.com/og/ed/f/original/2017/11/24/gali1.jpg"] ## Informa a URL da imagem, pode informar mais de uma é so colocar virgula antes.
+    "imagem":["http://s2.glbimg.com/4Ek8CnZSuYyyvaNQEPPiX_d-faA=/e.glbimg.com/og/ed/f/original/2017/11/24/gali1.jpg"], ## Informa a URL da imagem, pode informar mais de uma é so colocar virgula antes.
+     "uf":"MG", ## Informa a sigla do estado onde foi encontrado o anjinho.
+    "city":"barbacena" ## informa a cidade onde foi encontrado o anjinho.
 }
 ```
 
