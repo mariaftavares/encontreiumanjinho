@@ -5,37 +5,17 @@ const SECRET= process.env.SECRET
 
 
 const createUser = async (req,res)=>{ 
+    const {email,name,password,phone} = req.body
+    const fields = [email,name,password,phone]
     try {
-        console.log(req.body)
-        if(req.body.email === undefined || req.body.email === null ||req.body.email.trim() == ""){
+         if(validateField(fields)){
             throw {
                 statusCode: 400,
-                message: "Não foi informado email.",
-                details: "Informações insuficientes para a criação de um usuário "
-            }
-        }
-        if(req.body.name === undefined || req.body.name === null ||req.body.name.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado o nome.",
+                message: "Por favor informar todos campos obrigatorios name,email,password,phone",
                 details: "Informações insuficientes para a criação de um usuário  "
             }
         }
-        if(req.body.password === undefined || req.body.password === null ||req.body.password.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado a senha",
-                details: "Informações insuficientes para a criação de um usuário  "
-            }
-        }
-        if(req.body.phone === undefined || req.body.phone === null ||req.body.phone.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado o telefone.",
-                details: "Informações insuficientes para a criação de um usuário  "
-            }
-        }
-        if(!validatePhone(req.body.phone)){
+        if(!validatePhone(phone)){
             throw {
                 statusCode: 400,
                 message: "Numero de telefone informado inválido",
@@ -43,7 +23,7 @@ const createUser = async (req,res)=>{
             }
 
         }
-        if(!validateEmail(req.body.email)){
+        if(!validateEmail(email)){
             throw {
                 statusCode: 400,
                 message: "Email informado inválido",
@@ -51,7 +31,7 @@ const createUser = async (req,res)=>{
             }
 
         }
-        const emailExist = await  userSchema.exists({email:req.body.email})
+        const emailExist = await  userSchema.exists({email:email})
         if(emailExist){
             throw {
                 statusCode: 409,
@@ -59,9 +39,13 @@ const createUser = async (req,res)=>{
                 details: "Usuário já cadastrado"
             }
         }
-        const hashedpassaword = bcrypt.hashSync(req.body.password, 10);
-        req.body.password = hashedpassaword
-        const newUser = new userSchema(req.body)
+        const hashedpassaword = bcrypt.hashSync(password, 10);
+        const newUser = new userSchema({
+            name:name,
+            email:email,
+            password:hashedpassaword,
+            phone:phone
+        })
         const savedUser = await newUser.save()
         res.status(201).send({
             message:"Usuario criado com sucesso!",
@@ -82,33 +66,28 @@ const createUser = async (req,res)=>{
 
 const login = async (req,res)=>{
     try {
-        if(req.body.email === undefined || req.body.email === null ||req.body.email.trim() == ""){
+        const {email,password} = req.body
+        const fields = [email,password]
+        if(validateField(fields)){
             throw {
                 statusCode: 400,
-                message: "Não foi informado email.",
+                message: "Por favor informar todos campos obrigatorios: email,password",
                 details: "Informações insuficientes para realizar o login "
             }
         }
-        if(req.body.password === undefined || req.body.password === null ||req.body.password.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado a senha.",
-                details: "Informações insuficientes para realizar o login "
-            }
-        }
-       userSchema.findOne({email:req.body.email},(erro,user)=>{
+       userSchema.findOne({email:email},(erro,user)=>{
             if(!user){
-                throw {
+                return res.status(400).send({
                     statusCode: 400,
                     message: "Email/senha incorretos"
-                }
+                })
             }
-            const validpassaword = bcrypt.compareSync(req.body.password,user.password)
+            const validpassaword = bcrypt.compareSync(password,user.password)
             if(!validpassaword){
-                throw {
+               return res.status(400).send({
                     statusCode: 400,
                     message: "Email/senha incorretos"
-                }
+                })
             }
             const token = jwt.sign({id:user._id},SECRET)  
             res.status(200).send({
@@ -135,6 +114,11 @@ const login = async (req,res)=>{
 const validateEmail = (email) => {
     const regex = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/); 
     return regex.test(email);
+}
+
+const validateField = (fields)=>{
+    const validation = fields.some(field => !field || field.trim() == "")
+    return validation;
 }
 
 

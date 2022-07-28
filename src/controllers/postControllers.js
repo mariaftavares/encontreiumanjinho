@@ -1,50 +1,31 @@
 const postSchema = require('../models/postSchema')
 
 const createPost = async (req, res) => {
-   
     try {
-        if(req.body.uf === undefined || req.body.uf === null ||req.body.uf.trim() == ""){
+        let {description,uf,city,imagem,genre,species,finaldate} = req.body
+        const fields = [description,uf,city,finaldate]
+        if(validateField(fields)){
             throw {
                 statusCode: 400,
-                message: "Não foi informado o estado (UF).",
+                message: "Por favor informar todos campos obrigatórios: description,uf,city,finaldate",
                 details: "Informação insuficientes para a criação da publicação "
             }
         }
-        if(req.body.city === undefined || req.body.city === null ||req.body.city.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado o cidade (city).",
-                details: "Informação insuficientes para a criação da publicação "
-            }
+        if(species){
+           species = typeValue(species)
         }
-        if(req.body.finaldate === undefined || req.body.finaldate === null ||req.body.finaldate.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado até que data pode ficar com animalzinho (finaldate).",
-                details: "Informação insuficientes para a criação da publicação "
-            }
+        if(genre){
+            genre = typeValue(genre)
         }
-        if(req.body.description === undefined || req.body.description === null ||req.body.description.trim() == ""){
-            throw {
-                statusCode: 400,
-                message: "Não foi informado nenhuma descrição para a publicação (description).",
-                details: "Informação insuficientes para a criação da publicação "
-            }
-        }
-        if(req.body.species.toLowerCase() == 'c')req.body.species ="cachorro"
-        if(req.body.species.toLowerCase() == 'g')req.body.species ="gato"   
-        if(req.body.species.toLowerCase() == 'o')req.body.species ="outro"         
-        if(req.body.genre.toLowerCase() == 'f')req.body.genre ="fêmea"
-        if(req.body.genre.toLowerCase() == 'm')req.body.genre ="macho" 
         const newPost = new postSchema({
             id_user: res.locals.id,
-            finaldate: req.body.finaldate,
-            description: req.body.description,
-            genre: req.body.genre || "não informado",
-            species: req.body.species || "não informado",
-            imagem: req.body.imagem,
-            uf: req.body.uf.toLowerCase(),
-            city: req.body.city.toLowerCase(),
+            finaldate: finaldate,
+            description: description,
+            genre: genre|| "não informado",
+            species:species|| "não informado",
+            imagem: imagem,
+            uf: uf.toLowerCase(),
+            city:city.toLowerCase(),
             adopted:false
         })
 
@@ -197,6 +178,23 @@ const deletePost = async(req,res)=>{
             res.status(500).send(error.message)
         }
     }
+}
+
+const validateField = (fields)=>{
+    const validation = fields.some(field => !field || field.trim() == "")
+    return validation;
+}
+
+const typeValue = (value) =>{
+    const values = {
+        c:"cachorro",
+        g:"gato",
+        o:"outro",
+        f:"fêmea",
+        m:"macho"
+    }
+    value = values[value.toLowerCase()]
+    return value 
 }
 
 
