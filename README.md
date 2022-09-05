@@ -1,4 +1,4 @@
-<img src="https://github.com/mariaftavares/encontreiumanjinho/blob/main/imagem/bannerGithub.png"  />    
+<img src="https://github.com/mariaftavares/encontreiumanjinho/blob/main/Public/bannerGithub.png"  />    
 <p align="center">
 <a href="https://nodejs.org/en/">
     <img alt="node" src="https://img.shields.io/badge/node-v16.13.1-%237519C1">
